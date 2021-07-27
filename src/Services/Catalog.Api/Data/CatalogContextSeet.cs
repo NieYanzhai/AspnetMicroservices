@@ -6,7 +6,7 @@ using MongoDB.Driver;
 
 namespace Catalog.Api.Data
 {
-    public class MongoContextSeet
+    public class CatalogContextSeet
     {
         public static void SeedData(IMongoCollection<Product> products)
         {

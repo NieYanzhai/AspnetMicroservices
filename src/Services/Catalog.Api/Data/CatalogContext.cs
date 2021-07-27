@@ -14,12 +14,14 @@ namespace Catalog.Api.Data
             this.configuration = configuration;
 
             var mongoClient = new MongoClient(configuration.GetValue<string>("MongoSettings:ConnectionString"));
-            CatalogDB = mongoClient.GetDatabase(configuration.GetValue<string>("MongoSettings:DatabaseName"));
+            this.CatalogDB = mongoClient.GetDatabase(configuration.GetValue<string>("MongoSettings:DatabaseName"));
+            this.Products = this.CatalogDB.GetCollection<Product>(configuration.GetValue<string>("MongoSettings:CollectionName"));
 
-            var products = this.CatalogDB.GetCollection<Product>(configuration.GetValue<string>("MongoSettings:CollectionName"));
-            MongoContextSeet.SeedData(products);
+            CatalogContextSeet.SeedData(this.Products);
         }
 
         public IMongoDatabase CatalogDB { get; }
+
+        public IMongoCollection<Product> Products {get;}
     }
 }
