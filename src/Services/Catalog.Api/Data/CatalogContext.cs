@@ -17,7 +17,7 @@ namespace Catalog.Api.Data
             this.CatalogDB = mongoClient.GetDatabase(configuration.GetValue<string>("MongoSettings:DatabaseName"));
             this.Products = this.CatalogDB.GetCollection<Product>(configuration.GetValue<string>("MongoSettings:CollectionName"));
 
-            CatalogContextSeet.SeedData(this.Products);
+            CatalogContextSeed.SeedData(this.Products);
         }
 
         public IMongoDatabase CatalogDB { get; }

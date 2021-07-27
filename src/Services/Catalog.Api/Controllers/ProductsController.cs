@@ -23,14 +23,14 @@ namespace Catalog.Api.Controllers
             this.logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet] // api/v1/products
         [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return Ok(await this.productRepository.GetProductsAsync());
         }
 
-        [HttpGet("{id:string}", Name = "GetProduct")]
+        [HttpGet("{id}", Name = "GetProduct")] // api/v1/products/{id}
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> GetProductById(string id)
@@ -43,29 +43,31 @@ namespace Catalog.Api.Controllers
             return Ok(product);
         }
 
-        [Route("{action}/{catalog}")]
+        [Route("[action]/{catalog}")] // api/v1/products/[action]/{catalog}
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> GetProductsByCatalog(string catalog)
         {
             var product = await this.productRepository.GetProductsByCatalogAsync(catalog);
-            if (product == null)
-            {
-                return NotFound();
-            }
             return Ok(product);
         }
 
-        [HttpPost]
+        [HttpPost] // api/v1/products
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
         {
-            await this.productRepository.CreateProductAsync(product);
-            return CreatedAtRoute(nameof(GetProductById), new { id = product.Id }, product);
+            var p = this.productRepository.GetProductByIdAsync(product.Id);
+            if (p != null)
+            {
+                return StatusCode(500, JsonSerializer.Serialize(p));
+            }
+
+            await this.productRepository.CreateProductAsync(product);            
+            return CreatedAtRoute("GetProduct" , new { id = product.Id }, product);
         }
 
-        [HttpPut]
+        [HttpPut] // api/v1/products
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> UpdateProduct([FromBody] Product product)
@@ -75,7 +77,7 @@ namespace Catalog.Api.Controllers
             return Ok(product);
         }
 
-        [HttpDelete("{id:string}")]
+        [HttpDelete("{id}")] // api/v1/products/{id}
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> DeleteProduct(string id)

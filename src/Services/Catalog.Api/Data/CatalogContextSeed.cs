@@ -6,11 +6,11 @@ using MongoDB.Driver;
 
 namespace Catalog.Api.Data
 {
-    public class CatalogContextSeet
+    public class CatalogContextSeed
     {
         public static void SeedData(IMongoCollection<Product> products)
         {
-            if (products.Find(p => true) == null)
+            if (products.CountDocuments(p => true) == 0)
             {
                 products.InsertMany(GetEnumeratedProducts());
             }
