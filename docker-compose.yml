@@ -5,7 +5,7 @@ services:
     image: catalogapi
     build:
       context: .
-      dockerfile: src/Services/Catalog.Api/Dockerfile
+      dockerfile: src/Services/Catalog/Catalog.Api/Dockerfile
 
   catalogdb:
     image: mongo
