@@ -57,7 +57,7 @@ namespace Catalog.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
         {
-            var p = this.productRepository.GetProductByIdAsync(product.Id);
+            var p = await this.productRepository.GetProductByIdAsync(product.Id);
             if (p != null)
             {
                 return StatusCode(500, JsonSerializer.Serialize(p));
