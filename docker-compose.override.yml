@@ -2,19 +2,36 @@ version: '3.4'
 
 services:
   catalogapi:
-    container_name: catalogapi
+    container_name: catalog.api
     environment: 
-      - "MongoSettings:ConnectionString=mongodb://catalogdb:27017"
       - ASPNETCORE_ENVIRONMENT=Development
+      - "MongoSettings:ConnectionString=mongodb://catalogdb:27017"
     ports:
       - 8000:80
     depends_on: 
-      - catalogdb    
+      - catalogdb   
+
+  basketapi:
+    container_name: basket.api
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "RedisSettings:ConnectionString=basketdb:6379"
+    ports:
+      - 8001:80
+    depends_on: 
+      - basketdb  
 
   catalogdb:
     container_name: catalogdb
-    volumes: 
-      - catalog_data:/data/db
     ports: 
       - 27017:27017
     restart: always
+    volumes: 
+      - catalog_data:/data/db
+    
+  basketdb:
+    container_name: basketdb
+    ports: 
+      - 6379:6379
+    restart: always
+    
