@@ -19,7 +19,8 @@ namespace Basket.Api.Repository
             var basketCache = await this.distributedCache.GetStringAsync(name);
             if (string.IsNullOrEmpty(basketCache))
             {
-                return new ShoppingCart(name);
+                var newShoppingCart = new ShoppingCart(name);
+                return await this.UpdateBasketAsync(newShoppingCart);
             }
             return JsonSerializer.Deserialize<ShoppingCart>(basketCache);
         }
