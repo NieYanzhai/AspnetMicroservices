@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Basket.Api.Entities;
@@ -6,7 +5,7 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace Basket.Api.Repository
 {
-    public class BasketRepository
+    public class BasketRepository : IBasketRepository
     {
         private readonly IDistributedCache distributedCache;
 
