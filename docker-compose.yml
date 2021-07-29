@@ -18,6 +18,10 @@ services:
   
   basketdb:
     image: redis
+
+  portainer:
+    image: portainer/portainer-ce
   
 volumes: 
   catalog_data:
+  portainer_data:
