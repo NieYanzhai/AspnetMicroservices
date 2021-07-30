@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Discount.Api.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,8 @@ namespace Discount.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Discount.Api", Version = "v1" });
             });
+
+            services.AddScoped<ICouponRepository, CouponRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
