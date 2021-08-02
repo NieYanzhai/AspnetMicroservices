@@ -55,7 +55,7 @@ namespace Discount.Api.Repository
             {
                 var sql = @"Update Coupon
                             Set Amount=@Amount, ProductName=@ProductName, Description=@Description
-                            Where Id=@Dd";
+                            Where Id=@Id";
                 affected = await connection.ExecuteAsync(sql, coupon);
             }
             if (affected == 0) return false;

@@ -30,21 +30,21 @@ namespace Discount.Api.Controllers
         [HttpPost] // api/v1/coupons
         [ProducesResponseType(typeof(Coupon), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<bool>> PostCouponAsync([FromBody] Coupon coupon)
+        public async Task<ActionResult<Coupon>> PostCouponAsync([FromBody] Coupon coupon)
         {
             var result = await this.couponRepository.CreateCouponAsync(coupon);
             if (!result) return StatusCode(500);
-            return Ok(coupon);
+            return await this.GetCouponAsync(coupon.ProductName);
         }
 
         [HttpPut] // api/v1/coupons
         [ProducesResponseType(typeof(Coupon), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<bool>> PutCouponAsync([FromBody] Coupon coupon)
+        public async Task<ActionResult<Coupon>> PutCouponAsync([FromBody] Coupon coupon)
         {
             var result = await this.couponRepository.UpdateCouponAsync(coupon);
             if (!result) return StatusCode(500);
-            return Ok(coupon);
+            return await this.GetCouponAsync(coupon.ProductName);
         }
 
         [HttpDelete("{productName}")] // api/v1/coupons/{productName}
