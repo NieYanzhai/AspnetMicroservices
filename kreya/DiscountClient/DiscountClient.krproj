@@ -1,0 +1,19 @@
+{
+  "id": "80271c7f-35dc-4708-ac3e-2cf4579dda53",
+  "importStreams": [
+    {
+      "id": "faf135d2-0697-466a-8f1c-98f33e5f1ca4",
+      "name": "FirstImporters",
+      "importerName": "ProtoFile",
+      "createMissingOperations": true,
+      "options": {
+        "files": [
+          "../../src/Services/Discount/Discount.Grpc/Protos/greet.proto"
+        ],
+        "importPaths": []
+      }
+    }
+  ],
+  "authConfigs": [],
+  "certificates": []
+}

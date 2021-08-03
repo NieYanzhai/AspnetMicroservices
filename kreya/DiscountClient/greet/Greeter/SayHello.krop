@@ -1,0 +1,13 @@
+{
+  "details": {
+    "endpoint": "http://localhost:5000",
+    "methodFqn": "greet.Greeter.SayHello"
+  },
+  "requests": [
+    {
+      "location": "SayHello-request.json"
+    }
+  ],
+  "operationType": "unary",
+  "invokerName": "grpc"
+}
