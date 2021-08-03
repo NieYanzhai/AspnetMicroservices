@@ -1,0 +1,12 @@
+{
+  "details": {
+    "methodFqn": "Coupons.Coupons.DeleteCoupon"
+  },
+  "requests": [
+    {
+      "location": "DeleteCoupon-request.json"
+    }
+  ],
+  "operationType": "unary",
+  "invokerName": "grpc"
+}

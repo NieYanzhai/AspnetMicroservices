@@ -5,14 +5,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Discount.Grpc.Extensions;
 
 namespace Discount.Grpc
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            await host.MigrateDatabaseAsync();
+            host.Run();
         }
 
         // Additional configuration is required to successfully run gRPC on macOS.

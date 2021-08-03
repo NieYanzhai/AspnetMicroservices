@@ -31,7 +31,8 @@ namespace Discount.Grpc.Services
             var coupon = this.mapper.Map<Coupon>(request.Coupon);
             var result = await this.couponRepository.CreateCouponAsync(coupon);
             if (!result) return null;
-            return this.mapper.Map<CouponModel>(coupon);
+            return this.mapper.Map<CouponModel>(
+                        await this.couponRepository.GetCouponAsync(coupon.ProductName));
         }
 
         public override async Task<CouponModel> UpdateCoupon(UpdateCouponRequest request, ServerCallContext context)
@@ -39,7 +40,8 @@ namespace Discount.Grpc.Services
             var coupon = this.mapper.Map<Coupon>(request.Coupon);
             var result = await this.couponRepository.UpdateCouponAsync(coupon);
             if (!result) return null;
-            return this.mapper.Map<CouponModel>(coupon);
+            return this.mapper.Map<CouponModel>(
+                        await this.couponRepository.GetCouponAsync(coupon.ProductName));
         }
 
         public override async Task<DeleteCouponResponse> DeleteCoupon(DeleteCouponRequest request, ServerCallContext context)

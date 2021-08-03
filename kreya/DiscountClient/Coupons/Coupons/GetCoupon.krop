@@ -1,11 +1,11 @@
 {
   "details": {
     "endpoint": "http://localhost:5000",
-    "methodFqn": "greet.Greeter.SayHello"
+    "methodFqn": "Coupons.Coupons.GetCoupon"
   },
   "requests": [
     {
-      "location": "SayHello-request.json"
+      "location": "GetCoupon-request.json"
     }
   ],
   "operationType": "unary",

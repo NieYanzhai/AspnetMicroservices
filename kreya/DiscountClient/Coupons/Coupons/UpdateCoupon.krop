@@ -1,0 +1,12 @@
+{
+  "details": {
+    "methodFqn": "Coupons.Coupons.UpdateCoupon"
+  },
+  "requests": [
+    {
+      "location": "UpdateCoupon-request.json"
+    }
+  ],
+  "operationType": "unary",
+  "invokerName": "grpc"
+}
