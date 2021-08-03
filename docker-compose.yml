@@ -19,6 +19,12 @@ services:
       context: .
       dockerfile: src/Services/Discount/Discount.Api/Dockerfile
 
+  discountgrpc:
+    image: discountgrpc
+    build:
+      context: .
+      dockerfile: src/Services/Discount/Discount.Grpc/Dockerfile
+
   catalogdb:
     image: mongo
   
