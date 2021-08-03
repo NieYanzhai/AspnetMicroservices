@@ -22,7 +22,13 @@ namespace Discount.Grpc.Services
         public override async Task<CouponModel> GetCoupon(GetCouponRequest request, ServerCallContext context)
         {
             var coupon = await this.couponRepository.GetCouponAsync(request.ProductName);
-            if (coupon.Id == 0) return null;
+            if (coupon.Id == 0) return new CouponModel
+            {
+                Amount = 0d,
+                ProductName = coupon.ProductName,
+                Description = coupon.Description,
+                Id = -1
+            };
             return this.mapper.Map<CouponModel>(coupon);
         }
 
@@ -30,7 +36,13 @@ namespace Discount.Grpc.Services
         {
             var coupon = this.mapper.Map<Coupon>(request.Coupon);
             var result = await this.couponRepository.CreateCouponAsync(coupon);
-            if (!result) return null;
+            if (!result) return new CouponModel
+            {
+                Amount = 0d,
+                ProductName = coupon.ProductName,
+                Description = coupon.Description,
+                Id = -1
+            };
             return this.mapper.Map<CouponModel>(
                         await this.couponRepository.GetCouponAsync(coupon.ProductName));
         }
@@ -39,7 +51,13 @@ namespace Discount.Grpc.Services
         {
             var coupon = this.mapper.Map<Coupon>(request.Coupon);
             var result = await this.couponRepository.UpdateCouponAsync(coupon);
-            if (!result) return null;
+            if (!result) return new CouponModel
+            {
+                Amount = 0d,
+                ProductName = coupon.ProductName,
+                Description = coupon.Description,
+                Id = -1
+            };
             return this.mapper.Map<CouponModel>(
                         await this.couponRepository.GetCouponAsync(coupon.ProductName));
         }
