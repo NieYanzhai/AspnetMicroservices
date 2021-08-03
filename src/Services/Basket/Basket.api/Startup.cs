@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Basket.Api.GrpcServices;
 using Basket.Api.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using static Discount.Grpc.Protos.Coupons;
 
 namespace Basket.Api
 {
@@ -39,6 +41,12 @@ namespace Basket.Api
                 options.Configuration = Configuration.GetValue<string>("RedisSettings:ConnectionString");
             });
             services.AddScoped<IBasketRepository, BasketRepository>();
+
+            services.AddGrpcClient<CouponsClient>(options =>
+            {
+                options.Address = new Uri(Configuration.GetValue<string>("GrpcSettings:DiscountGrpcConnectionString"));
+            });
+            services.AddScoped<ICouponsGrpcService, CouponsGrpcService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
