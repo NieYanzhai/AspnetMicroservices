@@ -16,7 +16,7 @@ services:
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
       - "RedisSettings:ConnectionString=basketdb:6379"
-      - "GrpcSettings:DiscountGrpcConnectionString=http://discountgrpc:8003"
+      - "GrpcSettings:DiscountGrpcConnectionString=http://discountgrpc"
     ports:
       - "8001:80"
     depends_on: 
