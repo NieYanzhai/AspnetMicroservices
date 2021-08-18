@@ -4,6 +4,8 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Ordering.Application.Contracts.Persistence;
 using Ordering.Application.Features.Commands;
+using Ordering.Application.Features.Exceptions;
+using Ordering.Domain.Entities;
 
 namespace Ordering.Application.Features.Handlers
 {
@@ -23,7 +25,7 @@ namespace Ordering.Application.Features.Handlers
             if (order == null)
             {
                 this.logger.LogError($"Order ({request.Order.Id}) can not found.");
-                // TODO: throw
+                throw new NotFoundException(nameof(Order), request.Order.Id);
             }
 
             await this.orderRepository.UpdateAsync(order);

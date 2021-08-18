@@ -24,11 +24,6 @@ namespace Ordering.Application.Features.Handlers
         public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
             var order = await this.orderRepository.AddAsync(request.Order);
-            if (order == null)
-            {
-                this.logger.LogError($"Order checkout failed.");
-                // TODO : throw exception
-            }
 
             await this.emailService.SendMail(new Email{
                 To="test@domain.com", 
