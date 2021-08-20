@@ -15,7 +15,7 @@ namespace Ordering.Application
                 .AddMediatR(Assembly.GetExecutingAssembly())
                 .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(OrderValidationBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(OrderValidationBehavior<,>));
 
             return services;
         }

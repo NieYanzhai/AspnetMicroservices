@@ -1,0 +1,25 @@
+var template = @"
+@{
+    Layout = ""./ Shared / _Layout.cshtml"";
+}
+<h1>Dear @Model.Name:</h1>
+<br />
+<p>You are @Model.Age years old.</p>
+<table class="" table table-bordered"">
+    <thead>
+        <tr>
+            <th scope="" col"">FirstName</th>
+            <th scope="" col"">LastName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+";
