@@ -25,10 +25,14 @@ namespace Ordering.Application.Features.Handlers
             this.logger = logger;
             this.emailService = emailService;
 
-            this.mailTemplate = File.ReadAllText(
-                Path.Combine(
-                    Directory.GetParent(Directory.GetCurrentDirectory()).ToString(), 
-                    "Ordering.Application/Models/Email/EmailTemplates/DefaultEmailTemplate.cshtml"));
+            // windows local
+            // this.mailTemplate = File.ReadAllText(
+            //     Path.Combine(
+            //         Directory.GetParent(Directory.GetCurrentDirectory()).ToString(), 
+            //         "Ordering.Application/Models/Email/EmailTemplates/DefaultEmailTemplate.cshtml"));
+        
+            // docker linux
+            this.mailTemplate = File.ReadAllText("/app/Models/Email/EmailTemplates/DefaultEmailTemplate.cshtml");        
         }
         public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
