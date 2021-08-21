@@ -68,6 +68,15 @@ services:
     volumes: 
       - discount_data:/var/lib/postgresql/data
 
+  orderdb:
+    container_name: orderdb
+    environment: 
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Sa123456
+    ports: 
+      - "1433:1433"
+    restart: always
+
   portainer:
     container_name: portainer
     ports: 

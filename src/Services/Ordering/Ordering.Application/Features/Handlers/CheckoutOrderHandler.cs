@@ -25,7 +25,10 @@ namespace Ordering.Application.Features.Handlers
             this.logger = logger;
             this.emailService = emailService;
 
-            this.mailTemplate = File.ReadAllText("../../Models/Mail/MailTemplates/DefaultMailTemplate.txt");
+            this.mailTemplate = File.ReadAllText(
+                Path.Combine(
+                    Directory.GetParent(Directory.GetCurrentDirectory()).ToString(), 
+                    "Ordering.Application/Models/Email/EmailTemplates/DefaultEmailTemplate.cshtml"));
         }
         public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {

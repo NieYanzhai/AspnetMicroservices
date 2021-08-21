@@ -1,0 +1,61 @@
+@* @{
+    Layout = "Shared/_Layout.cshtml";
+    } *@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+
+<body>
+    <header></header>
+    <div class="container">
+        <main role="main" class="pb-3">
+
+
+
+            @* @RenderBody() *@
+
+            <h1>Dear @Model.Name:</h1>
+            <br />
+            <p>You are @Model.Age years old.</p>
+            <table class=" table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope=" col">FirstName</th>
+                        <th scope=" col">LastName</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021
+        </div>
+    </footer>
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+    @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script> *@
+    @* @await RenderSectionAsync("Scripts", required: false) *@
+</body>
+
+</html>

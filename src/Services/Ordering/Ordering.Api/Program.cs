@@ -14,11 +14,11 @@ namespace Ordering.Api
 {
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            await host.MigrateDatabaseAsync<OrderContext>(async (context, serviceProvider) => {
-                await OrderContextSeed.SeedAsync(
+            host.MigrateDatabase<OrderContext>((context, serviceProvider) => {
+                OrderContextSeed.Seed(
                     context, 
                     serviceProvider.GetRequiredService<ILogger<OrderContextSeed>>());
             });          

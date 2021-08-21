@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Services/Catalog.Api/Catalog.Api.csproj",
+                "${workspaceFolder}/src/Services/Ordering/Ordering.Api/Ordering.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

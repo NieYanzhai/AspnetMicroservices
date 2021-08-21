@@ -28,8 +28,8 @@ namespace Ordering.Application.Features.Handlers
                 throw new NotFoundException(nameof(Order), request.Order.Id);
             }
 
-            await this.orderRepository.UpdateAsync(order);
-            logger.LogInformation($"Order ({order.Id}) Updated.");
+            await this.orderRepository.UpdateAsync(request.Order);
+            logger.LogInformation($"Order ({request.Order.Id}) Updated.");
 
             return await Task.FromResult(Unit.Value);
         }

@@ -24,9 +24,8 @@ namespace Ordering.Infrastructure.Email
         {
             using (var scope = this.serviceProvider.CreateScope())
             {
-                var result = await scope.ServiceProvider.GetRequiredService<IFluentEmail>()
+                var mail = scope.ServiceProvider.GetRequiredService<IFluentEmail>()
                     .To(email.ToMailAddresses)
-                    .CC(email.CcMailAddresses)
                     .Subject(email.Subject)
                     // .Body("hello from fluenemail");
                     .UsingTemplate(email.Template, new DefaultMailTemplateModel
@@ -37,8 +36,12 @@ namespace Ordering.Infrastructure.Email
                             new User{FirstName = "Nie", LastName = "Yanzhai"},
                             new User {FirstName = "Ge", LastName = "Lijuan"}
                         }
-                    })
-                    .SendAsync();
+                    });
+
+                if (email.CcMailAddresses != null) mail.CC(email.CcMailAddresses);
+
+                var result = await mail.SendAsync();
+
                 return result.Successful;
             }
         }

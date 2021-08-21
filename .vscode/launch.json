@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Services/Catalog.Api/bin/Debug/net5.0/Catalog.Api.dll",
+            "program": "${workspaceFolder}/src/Services/Ordering/Ordering.Api/bin/Debug/net5.0/Ordering.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Services/Catalog/Catalog.Api",
+            "cwd": "${workspaceFolder}/src/Services/Ordering/Ordering.Api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

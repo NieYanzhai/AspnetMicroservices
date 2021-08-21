@@ -14,7 +14,7 @@ namespace Ordering.Application.Features.Behaviors
         private readonly IEnumerable<IValidator<TRequest>> validators;
         private readonly ILogger<OrderValidationBehavior<TRequest, TResponse>> logger;
 
-        OrderValidationBehavior(
+        public OrderValidationBehavior(
             IEnumerable<IValidator<TRequest>> validators, 
             ILogger<OrderValidationBehavior<TRequest, TResponse>> logger)
         {

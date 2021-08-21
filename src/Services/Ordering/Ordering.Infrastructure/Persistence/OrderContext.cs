@@ -16,8 +16,13 @@ namespace Ordering.Infrastructure.Persistence
 
         public DbSet<Order> Orders { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>().Property(x => x.TotalPrice).HasColumnType("money");
+        }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach (var entry in ChangeTracker.Entries<EntityBase>())
             {
@@ -35,7 +40,7 @@ namespace Ordering.Infrastructure.Persistence
                 }
             }
 
-            return await base.SaveChangesAsync(cancellationToken);
+            return base.SaveChangesAsync(cancellationToken);
         }
 
     }

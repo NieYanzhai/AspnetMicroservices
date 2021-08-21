@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Ordering.Domain.Entities;
@@ -8,11 +9,14 @@ namespace Ordering.Infrastructure.Persistence
 {
     public class OrderContextSeed
     {
-        public static async Task SeedAsync(OrderContext orderContext, ILogger<OrderContextSeed> logger)
+        public static void Seed(OrderContext orderContext, ILogger<OrderContextSeed> logger)
         {
-            await orderContext.Orders.AddRangeAsync(GetFakedOrders());
-            await orderContext.SaveChangesAsync();
-            logger.LogInformation($"Seed database associated with context {typeof(OrderContext).Name}");
+            if (!orderContext.Orders.Any())
+            {
+                orderContext.AddRange(GetFakedOrders());
+                orderContext.SaveChanges();
+                logger.LogInformation($"Seed database associated with context {typeof(OrderContext).Name}");
+            }
         }
 
         private static IEnumerable<Order> GetFakedOrders()
@@ -33,7 +37,7 @@ namespace Ordering.Infrastructure.Persistence
                     EmailAddress = "yanzhai.nie@outlook.com",
                     AddressLine = "wuxi",
                     Country = "China",
-                    TotalPrice = 100 }                    
+                    TotalPrice = 100 }
             };
         }
     }

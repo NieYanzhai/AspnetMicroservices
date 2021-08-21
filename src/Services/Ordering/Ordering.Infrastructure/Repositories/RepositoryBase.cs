@@ -77,8 +77,13 @@ namespace Ordering.Infrastructure.Repositories
 
         public async Task UpdateAsync(T entity)
         {
-            this.orderContext.Update(entity);
-            await this.orderContext.SaveChangesAsync();
+            var exist = this.orderContext.Find<T>(entity.Id);
+            if (exist != null)
+            {
+                // this.orderContext.Update<T>(entity);
+                this.orderContext.Entry(exist).CurrentValues.SetValues(entity);
+                await this.orderContext.SaveChangesAsync();
+            }            
         }
     }
 }

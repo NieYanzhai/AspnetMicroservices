@@ -15,13 +15,13 @@ namespace Ordering.Infrastructure
             this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddFluentEmail(configuration["EmailSettings.From"])
+                .AddFluentEmail(configuration["EmailSettings:From"])
                 .AddRazorRenderer()
                 .AddSmtpSender(
-                    host : configuration["EmailSettings.Host"],
-                    port: int.Parse(configuration["EmailSettings.Port"]),
-                    username: configuration["EmailSettings.User"],
-                    password: configuration["EmailSettings.Password"]);
+                    host : configuration["EmailSettings:Host"],
+                    port: int.Parse(configuration["EmailSettings:Port"]),
+                    username: configuration["EmailSettings:User"],
+                    password: configuration["EmailSettings:Password"]);
 
             services.AddDbContext<OrderContext>(options => {
                 options.UseSqlServer(configuration.GetConnectionString("SqlConnectionString"));
