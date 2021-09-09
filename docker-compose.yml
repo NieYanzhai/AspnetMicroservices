@@ -49,6 +49,9 @@ services:
   portainer:
     image: portainer/portainer-ce
   
+  rabbitmq:
+    image: 3-management
+
 volumes: 
   catalog_data:
   portainer_data:
