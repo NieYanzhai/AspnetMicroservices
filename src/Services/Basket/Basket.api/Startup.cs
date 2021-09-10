@@ -1,6 +1,7 @@
 using System;
 using Basket.Api.GrpcServices;
 using Basket.Api.Repository;
+using Basket.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,8 @@ namespace Basket.Api
                 options.Address = new Uri(Configuration.GetValue<string>("GrpcSettings:DiscountGrpcConnectionString"));
             });
             services.AddScoped<ICouponsGrpcService, CouponsGrpcService>();
+
+            services.AddScoped<IRabbitMQClientService, RabbitMQClientService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

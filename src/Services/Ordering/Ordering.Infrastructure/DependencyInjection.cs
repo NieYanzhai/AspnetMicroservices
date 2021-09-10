@@ -32,7 +32,7 @@ namespace Ordering.Infrastructure
                 .AddScoped<IEmailService, EmailService>()
                 .AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>))
                 .AddScoped<IOrderRepository, OrderRepository>()
-                .AddSingleton<IRabbitMQClientService, RabbitMQClientService>();                   
+                .AddSingleton<IRabbitMQClientService, RabbitMQClientService>();    // AddSingleton will start on host run start               
 
             return services;
         }

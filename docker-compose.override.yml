@@ -17,7 +17,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "RedisSettings:ConnectionString=basketdb:6379"
       - "GrpcSettings:DiscountGrpcConnectionString=http://discountgrpc"
-      - "RabbitMq:HostName=rabbitmq"
+      - "RabbitMQSettings:Info:Host=rabbitmq"
     ports:
       - "8001:80"
     depends_on: 
