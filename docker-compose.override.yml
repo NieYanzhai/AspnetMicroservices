@@ -17,10 +17,12 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "RedisSettings:ConnectionString=basketdb:6379"
       - "GrpcSettings:DiscountGrpcConnectionString=http://discountgrpc"
+      - "RabbitMq:HostName=rabbitmq"
     ports:
       - "8001:80"
     depends_on: 
       - basketdb  
+      - rabbitmq
 
   discountapi:
     container_name: discount.api
@@ -47,10 +49,12 @@ services:
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:SqlConnectionString=Server=orderdb,1433;Database=OrderDB;User Id=sa;Password=Sa123456;MultipleActiveResultSets=True"
+      - "RabbitMQSettings:Info:Host=rabbitmq"
     ports:
       - "8004:80"
     depends_on: 
       - orderdb
+      - rabbitmq
 
   catalogdb:
     container_name: catalogdb
@@ -109,7 +113,7 @@ services:
 
   rabbitmq:
     container_name: rabbitmq
-    hostname: my-rabbitmq
+    hostname: rabbitmq
     ports: 
       - "5672:5672"
       - "15672:15672"

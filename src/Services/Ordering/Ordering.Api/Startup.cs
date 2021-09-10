@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Ordering.Api.EventBusHandler;
 using Ordering.Application;
 using Ordering.Infrastructure;
 
@@ -30,6 +25,8 @@ namespace Ordering.Api
             services
                 .AddApplicationServices()
                 .AddInfrastructureServices(this.Configuration);
+
+            services.AddHostedService<RabbitMQConsumerWorker>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

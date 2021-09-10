@@ -4,6 +4,10 @@ using Basket.Api.Entities;
 using Basket.Api.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using BuildingBlocks.EventBus.Messages.Events;
+using Basket.Api.Services;
+using System.Text.Json;
 
 namespace Basket.Api.Controllers
 {
@@ -13,11 +17,16 @@ namespace Basket.Api.Controllers
     {
         private readonly IBasketRepository basketRepository;
         private readonly ICouponsGrpcService couponsGrpcService;
+        private readonly IRabbitMQClientService rabbitMQClientService;
 
-        public BasketsController(IBasketRepository basketRepository, ICouponsGrpcService couponsGrpcService)
+        public BasketsController(
+            IBasketRepository basketRepository, 
+            ICouponsGrpcService couponsGrpcService,
+            IRabbitMQClientService rabbitMQClientService)
         {
             this.basketRepository = basketRepository;
             this.couponsGrpcService = couponsGrpcService;
+            this.rabbitMQClientService = rabbitMQClientService;
         }
 
         [HttpGet("{name}", Name="GetBasket")] // api/v1/baskets/name
@@ -47,6 +56,27 @@ namespace Basket.Api.Controllers
         public async Task<ActionResult<ShoppingCart>> DeleteBasketAsync(string name)
         {
             return await this.basketRepository.DeleteBasketAsync(name);
+        }
+
+        [Route("[action]")] // action must be lower
+        [HttpPost] // api/v1/baskets/Checkout
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CheckoutAsync([FromBody] BasketCheckoutEvent basketCheckoutEvent)
+        {
+            // Get Basket for user - userName
+            var basket = (await this.GetBasketAsync(basketCheckoutEvent.UserName)).Value;
+            if(basket.Items is null || basket.Items.ToList().Count == 0) return BadRequest();
+
+            basketCheckoutEvent.TotalPrice = basket.TotalPrice;
+
+            // Send to rabbitmq
+            var message = JsonSerializer.Serialize(basketCheckoutEvent);
+            this.rabbitMQClientService.Publish(message, "key.checkout.basket", "exchange.checkout");
+
+            // Remove basket
+            await this.DeleteBasketAsync(basketCheckoutEvent.UserName);
+            return Accepted();
         }
 
     }

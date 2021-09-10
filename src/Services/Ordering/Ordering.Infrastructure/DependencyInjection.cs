@@ -5,6 +5,7 @@ using Ordering.Application.Contracts.Infrastructure;
 using Ordering.Application.Contracts.Persistence;
 using Ordering.Infrastructure.Email;
 using Ordering.Infrastructure.Persistence;
+using Ordering.Infrastructure.RabbitMq;
 using Ordering.Infrastructure.Repositories;
 
 namespace Ordering.Infrastructure
@@ -30,7 +31,8 @@ namespace Ordering.Infrastructure
             services
                 .AddScoped<IEmailService, EmailService>()
                 .AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>))
-                .AddScoped<IOrderRepository, OrderRepository>();                   
+                .AddScoped<IOrderRepository, OrderRepository>()
+                .AddSingleton<IRabbitMQClientService, RabbitMQClientService>();                   
 
             return services;
         }
