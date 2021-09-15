@@ -1,6 +1,8 @@
 using System;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Ordering.Application.Contracts.Infrastructure;
@@ -26,6 +28,17 @@ namespace Ordering.Infrastructure.RabbitMq
 
             // Get RabbitMQSetting
             var rabbitMQSettings = configuration.GetSection("RabbitMQSettings").Get<RabbitMQSettings>();
+
+            // PingReply pingReply;
+            // do
+            // {
+            //     var pingSender = new Ping();
+            //     pingReply = pingSender.Send(rabbitMQSettings.Info.Host);
+            // } while (pingReply.Status != IPStatus.Success);
+
+            // logger.LogInformation($"{DateTimeOffset.Now} Ping success");
+
+            // Task.Delay(TimeSpan.FromSeconds(5)).Wait();
 
             // Create RabbitMQ Connection and Channel
             var factory = new ConnectionFactory();

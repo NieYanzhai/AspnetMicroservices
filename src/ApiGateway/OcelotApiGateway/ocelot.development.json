@@ -1,0 +1,171 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/v1/Products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Products",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put"
+      ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 3,
+        "Limit": 1
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Products/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Products/{id}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Delete"
+      ],
+      "FileCacheOptions": {
+        "TtlSeconds": 15
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Products/GetProductsByCatalog/{catalog}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Products/GetProductsByCatalog/{catalog}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    },
+    
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Baskets/{name}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basketapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Baskets/{name}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Baskets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basketapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Baskets",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Baskets/Checkout",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basketapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Baskets/Checkout",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Baskets/name",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basketapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Baskets/name",
+      "UpstreamHttpMethod": [
+        "Delete"
+      ]
+    },
+    
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Orders/{username}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orderapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Orders/{username}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Orders",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orderapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Orders",
+      "UpstreamHttpMethod": [
+        "Post",
+        "Put"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Orders/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orderapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Orders/{id}",
+      "UpstreamHttpMethod": [
+        "Delete"
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://ocelotapigateway:8010",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Customize Tips! RateLimitOptions",
+      "HttpStatusCode": 999,
+      "ClientIdHeader": "Test"
+    }
+  }
+}

@@ -32,6 +32,7 @@ namespace Ordering.Api
                 .AddApplicationServices()
                 .AddInfrastructureServices(this.Configuration);
 
+    
             services.AddHostedService<RabbitMQConsumerWorker>();
         }
 

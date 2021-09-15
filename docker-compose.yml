@@ -1,6 +1,12 @@
 version: '3.4'
 
 services:
+  ocelotapigateway:
+    image: ocelotapigateway
+    build:
+      context: .
+      dockerfile: src/ApiGateway/OcelotApiGateway/Dockerfile
+
   catalogapi:
     image: catalogapi
     build:

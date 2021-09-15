@@ -1,6 +1,19 @@
 version: '3.4'
 
 services:
+  ocelotapigateway:
+    container_name: ocelot.api.gateway
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8010:80"
+    depends_on: 
+      - catalogapi
+      - basketapi
+      - discountapi
+      - discountgrpc
+      - orderapi 
+
   catalogapi:
     container_name: catalog.api
     environment: 
@@ -55,6 +68,7 @@ services:
     depends_on: 
       - orderdb
       - rabbitmq
+    restart: always
 
   catalogdb:
     container_name: catalogdb
